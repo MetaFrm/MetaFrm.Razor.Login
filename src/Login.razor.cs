@@ -86,11 +86,11 @@ namespace MetaFrm.Razor
 
                             await authenticationStateProvider.SetSessionTokenAsync(userInfo.Token);
                             authenticationStateProvider.Notify();
+
+                            this.SaveToken();
                         }
 
                         Factory.ViewModelClear();
-
-                        this.SaveToken();
 
                         //this.Navigation?.NavigateTo("/", true);
                         return true;
