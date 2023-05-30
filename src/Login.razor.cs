@@ -143,7 +143,7 @@ namespace MetaFrm.Razor
             }
             catch (Exception ex)
             {
-                this.ModalShow("Login", ex.ToString(), new() { { "Ok", Btn.Warning } }, EventCallback.Factory.Create<string>(this, OnClickFunctionAsync));
+                this.ModalShow("Login", $"{ex.ToString()} Account.USER_ID:{this.UserClaim("Account.USER_ID")}", new() { { "Ok", Btn.Warning } }, EventCallback.Factory.Create<string>(this, OnClickFunctionAsync));
             }
         }
         private async Task OnClickFunctionAsync(string action)
