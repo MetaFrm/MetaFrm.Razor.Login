@@ -92,7 +92,7 @@ namespace MetaFrm.Razor
 
                         this.SaveToken();
 
-                        this.Navigation?.NavigateTo("/", true);
+                        //this.Navigation?.NavigateTo("/", true);
                         return true;
                     }
                     else
