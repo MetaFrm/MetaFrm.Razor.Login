@@ -33,12 +33,13 @@
                         <ValidationMessage For="@(()=>this.LoginViewModel.Password)" />
                     </div>
 
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-12 mb-4">
                         <!-- Checkbox -->
-                        <div class="form-check">
-                            <InputCheckbox id="remembermelabel" class="form-check-input" @bind-Value="this.Rememberme" />
-                            <label class="form-check-label ps-1" for="remembermelabel">Remember me</label>
-                        </div>
+                        <InputCheckbox id="remembermelabel" class="form-check-input" @bind-Value="this.Rememberme" />
+                        <label class="form-check-label ps-1" for="remembermelabel">Remember me</label>
+                        <!-- Checkbox -->
+                        <InputCheckbox id="autologinlabel" class="form-check-input" @bind-Value="this.AutoLogin" />
+                        <label class="form-check-label ps-1" for="autologinlabel">Auto Login</label>
                     </div>
                     <div class="col-md-6 mb-4">
                         <a href="#" @onclick="this.OnPasswordResetClick" >Forgot password?</a>

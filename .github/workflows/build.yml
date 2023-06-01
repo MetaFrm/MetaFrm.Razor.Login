@@ -6,9 +6,9 @@ on:
   pull_request:
     branches: [ "master" ]
 env:
-  DLL_ID: 20
+  DLL_ID: ${{secrets.DLL_ID}}
   UPLOAD_MODURE: "Y"
-  PUSH_NUGET: "N"
+  PUSH_NUGET: "Y"
 
 jobs:
   build:
