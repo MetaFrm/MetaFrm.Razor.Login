@@ -18,6 +18,7 @@ namespace MetaFrm.Razor
     {
         internal LoginViewModel LoginViewModel = Factory.CreateViewModel<LoginViewModel>();
 
+        private bool isBusy = true;
 
         private bool rememberme = true;
         /// <summary>
@@ -100,18 +101,26 @@ namespace MetaFrm.Razor
                                     if (!this.LoginViewModel.Password.IsNullOrEmpty())
                                         await this.OnLoginClickAsync();
                                     else
+                                    {
+                                        this.isBusy = false;
                                         this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                                    }
                                 }
                                 else
+                                {
+                                    this.isBusy = false;
                                     this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                                }
 
                             }
                             catch (Exception)
                             {
+                                this.isBusy = false;
                                 this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                             }
                         else
                         {
+                            this.isBusy = false;
                             if (!this.LoginViewModel.Email.IsNullOrEmpty())
                                 this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                             else
@@ -120,6 +129,7 @@ namespace MetaFrm.Razor
                     }
                     else
                     {
+                        this.isBusy = false;
                         if (!this.LoginViewModel.Email.IsNullOrEmpty())
                             this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                         else
@@ -127,7 +137,10 @@ namespace MetaFrm.Razor
                     }
                 }
                 else
+                {
+                    this.isBusy = false;
                     this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
+                }
 
                 this.StateHasChanged();
             }
@@ -177,6 +190,9 @@ namespace MetaFrm.Razor
                     }
                     else
                     {
+                        if (this.AutoLogin)
+                            this.isBusy = false;
+
                         if (userInfo.Message != null)
                         {
                             this.ModalShow("Login", userInfo.Message, new() { { "Ok", Btn.Warning } }, EventCallback.Factory.Create<string>(this, OnClickFunctionAsync));

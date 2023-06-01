@@ -10,52 +10,58 @@
         <h1>Sign in</h1>
         <p>@Factory.ProjectService.ServiceName</p>
     </div>
-    <div class="row d-flex align-items-center justify-content-center h-100">
-        <div class="col-md-8 col-lg-7 col-xl-6 mb-4">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
-        </div>
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-8 col-lg-7 col-xl-6 mb-4">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
+            </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-            <EditForm Model="@this.LoginViewModel" OnValidSubmit="this.HandleValidSubmitAsync">
-                <DataAnnotationsValidator />
+            @if (this.isBusy)
+            {
+            }
+            else
+            {
+                <EditForm Model="@this.LoginViewModel" OnValidSubmit="this.HandleValidSubmitAsync">
+                    <DataAnnotationsValidator />
 
-                <div class="row">
-                    <span class="col-md-12 oi oi-person ps-3 pb-2"> Email address</span>
-                    <!-- Email input -->
-                    <div class="col-md-12 mb-4">
-                        <InputText id="email" class="form-control form-control" placeholder="Email address" @bind-Value="this.LoginViewModel.Email" @onkeydown="@EmailKeydown" @oninput="@HandleInputChange" />
-                        <ValidationMessage For="@(()=>this.LoginViewModel.Email)" />
-                    </div>
+                    <div class="row">
+                        <span class="col-md-12 oi oi-person ps-3 pb-2"> Email address</span>
+                        <!-- Email input -->
+                        <div class="col-md-12 mb-4">
+                            <InputText id="email" class="form-control form-control" placeholder="Email address" @bind-Value="this.LoginViewModel.Email" @onkeydown="@EmailKeydown" @oninput="@HandleInputChange" />
+                            <ValidationMessage For="@(()=>this.LoginViewModel.Email)" />
+                        </div>
 
-                    <span class="col-md-12 oi oi-lock-unlocked ps-3 pb-2"> Password</span>
-                    <!-- Password input -->
-                    <div class="col-md-12 mb-4">
-                        <InputText id="password" type="password" class="form-control form-control" placeholder="Password" @bind-Value="this.LoginViewModel.Password" />
-                        <ValidationMessage For="@(()=>this.LoginViewModel.Password)" />
-                    </div>
+                        <span class="col-md-12 oi oi-lock-unlocked ps-3 pb-2"> Password</span>
+                        <!-- Password input -->
+                        <div class="col-md-12 mb-4">
+                            <InputText id="password" type="password" class="form-control form-control" placeholder="Password" @bind-Value="this.LoginViewModel.Password" />
+                            <ValidationMessage For="@(()=>this.LoginViewModel.Password)" />
+                        </div>
 
-                    <div class="col-md-12 mb-4">
-                        <!-- Checkbox -->
-                        <InputCheckbox id="remembermelabel" class="form-check-input" @bind-Value="this.Rememberme" />
-                        <label class="form-check-label ps-1" for="remembermelabel">Remember me</label>
-                        <!-- Checkbox -->
-                        <InputCheckbox id="autologinlabel" class="form-check-input" @bind-Value="this.AutoLogin" />
-                        <label class="form-check-label ps-1" for="autologinlabel">Auto Login</label>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <a href="#" @onclick="this.OnPasswordResetClick" >Forgot password?</a>
-                    </div>
+                        <div class="col-md-12 mb-4">
+                            <!-- Checkbox -->
+                            <InputCheckbox id="remembermelabel" class="form-check-input" @bind-Value="this.Rememberme" />
+                            <label class="form-check-label ps-1" for="remembermelabel">Remember me</label>
+                            <!-- Checkbox -->
+                            <InputCheckbox id="autologinlabel" class="form-check-input" @bind-Value="this.AutoLogin" />
+                            <label class="form-check-label ps-1" for="autologinlabel">Auto Login</label>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <a href="#" @onclick="this.OnPasswordResetClick" >Forgot password?</a>
+                        </div>
 
-                    <!-- Submit button -->
-                    <div class="col-md-6 mb-4"> </div>
-                    <div class="col-md-6 mb-4">
-                        <button type="submit" class="btn btn-primary btn-block w-100" >Sign in</button>
-                    </div>
+                        <!-- Submit button -->
+                        <div class="col-md-6 mb-4"> </div>
+                        <div class="col-md-6 mb-4">
+                            <button type="submit" class="btn btn-primary btn-block w-100" >Sign in</button>
+                        </div>
 
-                    <div class="col-md-12 mb-4 text-center">
-                        <p>Don't have an account? <a href="#" @onclick="this.OnRegisterClick" >Register</a></p>
+                        <div class="col-md-12 mb-4 text-center">
+                            <p>Don't have an account? <a href="#" @onclick="this.OnRegisterClick" >Register</a></p>
+                        </div>
                     </div>
-                </div>
-            </EditForm>
+                </EditForm>
+            }
         </div>
     </div>
 </div>
