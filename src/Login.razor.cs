@@ -200,6 +200,10 @@ namespace MetaFrm.Razor
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                this.ModalShow("Login", $"{ex}", new() { { "Ok", Btn.Warning } }, null);
+            }
             finally
             {
                 this.LoginViewModel.IsBusy = false;
