@@ -64,6 +64,18 @@ namespace MetaFrm.Razor
             }
         }
 
+        Auth.AuthenticationStateProvider AuthenticationState;
+
+        /// <summary>
+        /// OnInitialized
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            this.AuthenticationState ??= (this.AuthStateProvider as Auth.AuthenticationStateProvider) ?? (Auth.AuthenticationStateProvider)Factory.CreateInstance(typeof(Auth.AuthenticationStateProvider));
+        }
+
         /// <summary>
         /// OnAfterRender
         /// </summary>
@@ -77,7 +89,7 @@ namespace MetaFrm.Razor
 
             if (firstRender)
             {
-                if (this.IsLogin())
+                if (this.AuthenticationState.IsLogin())
                     this.Navigation?.NavigateTo("/", true);
 
                 if (this.LocalStorage != null)
@@ -162,7 +174,7 @@ namespace MetaFrm.Razor
                     else
                         this.LocalStorage?.RemoveItemAsync("Login.Email");
 
-                    userInfo = await this.LoginServiceRequestAsync(this.LoginViewModel.Email, this.LoginViewModel.Password);
+                    userInfo = await this.LoginServiceRequestAsync(this.AuthenticationState, this.LoginViewModel.Email, this.LoginViewModel.Password);
 
                     if (userInfo.Status == Status.OK)
                     {
@@ -221,7 +233,7 @@ namespace MetaFrm.Razor
 
         private async void HandleValidSubmitAsync(EditContext context)
         {
-            if (!this.IsLogin())
+            if (!this.AuthenticationState.IsLogin())
                 await this.OnLoginClickAsync();
         }
 
