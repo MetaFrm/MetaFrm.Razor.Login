@@ -162,6 +162,9 @@ namespace MetaFrm.Razor
                     else
                         this.LocalStorage?.RemoveItemAsync("Login.Email");
 
+                    if (this.AuthStateProvider != null)
+                        this.AuthStateProvider.AuthenticationStateChanged += AuthStateProvider_AuthenticationStateChanged;
+
                     userInfo = await this.LoginServiceRequestAsync(this.AuthStateProvider, this.LoginViewModel.Email, this.LoginViewModel.Password);
 
                     if (userInfo.Status == Status.OK)
@@ -175,9 +178,9 @@ namespace MetaFrm.Razor
 
                         this.LoginViewModel.Password = string.Empty;
 
-                        Factory.ViewModelClear();
+                        //Factory.ViewModelClear();
 
-                        this.Navigation?.NavigateTo("/", true);
+                        //this.Navigation?.NavigateTo("/", true);
                         return true;
                     }
                     else
@@ -203,6 +206,21 @@ namespace MetaFrm.Razor
 
             return false;
         }
+
+        private void AuthStateProvider_AuthenticationStateChanged(Task<Microsoft.AspNetCore.Components.Authorization.AuthenticationState> task)
+        {
+            task.ContinueWith(t => {
+                if (this.LoginViewModel.Password.IsNullOrEmpty())
+                {
+                    if (t.IsCompleted)
+                    {
+                        Factory.ViewModelClear();
+                        this.Navigation?.NavigateTo("/", true);
+                    }
+                }
+            });
+        }
+
         private async Task OnClickFunctionAsync(string action)
         {
             await Task.Delay(100);
