@@ -212,12 +212,12 @@ namespace MetaFrm.Razor
             task.ContinueWith(t => {
                 int cnt = 0;
 
-                while (cnt < 10)
+                while (cnt < 20)
                 {
                     if (!this.LoginViewModel.Password.IsNullOrEmpty())
                         Task.Delay(100);
                     else
-                        cnt = 10;
+                        cnt = 20;
 
                     cnt++;
                 }
