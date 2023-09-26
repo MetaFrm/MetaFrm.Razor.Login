@@ -210,6 +210,18 @@ namespace MetaFrm.Razor
         private void AuthStateProvider_AuthenticationStateChanged(Task<Microsoft.AspNetCore.Components.Authorization.AuthenticationState> task)
         {
             task.ContinueWith(t => {
+                int cnt = 0;
+
+                while (cnt < 10)
+                {
+                    if (!this.LoginViewModel.Password.IsNullOrEmpty())
+                        Task.Delay(100);
+                    else
+                        cnt = 10;
+
+                    cnt++;
+                }
+
                 if (this.LoginViewModel.Password.IsNullOrEmpty())
                 {
                     if (t.IsCompleted)
