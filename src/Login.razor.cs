@@ -162,7 +162,7 @@ namespace MetaFrm.Razor
                     else
                         this.LocalStorage?.RemoveItemAsync("Login.Email");
 
-                    if (this.AuthStateProvider != null)
+                    if (Factory.Platform == Maui.Devices.DevicePlatform.Web && this.AuthStateProvider != null)
                         this.AuthStateProvider.AuthenticationStateChanged += AuthStateProvider_AuthenticationStateChanged;
 
                     userInfo = await this.LoginServiceRequestAsync(this.AuthStateProvider, this.LoginViewModel.Email, this.LoginViewModel.Password);
@@ -178,9 +178,11 @@ namespace MetaFrm.Razor
 
                         this.LoginViewModel.Password = string.Empty;
 
-                        //Factory.ViewModelClear();
-
-                        //this.Navigation?.NavigateTo("/", true);
+                        if (Factory.Platform != Maui.Devices.DevicePlatform.Web)
+                        {
+                            Factory.ViewModelClear();
+                            this.Navigation?.NavigateTo("/", true);
+                        }
                         return true;
                     }
                     else
@@ -210,18 +212,6 @@ namespace MetaFrm.Razor
         private void AuthStateProvider_AuthenticationStateChanged(Task<Microsoft.AspNetCore.Components.Authorization.AuthenticationState> task)
         {
             task.ContinueWith(t => {
-                int cnt = 0;
-
-                while (cnt < 20)
-                {
-                    if (!this.LoginViewModel.Password.IsNullOrEmpty())
-                        Task.Delay(100);
-                    else
-                        cnt = 20;
-
-                    cnt++;
-                }
-
                 if (this.LoginViewModel.Password.IsNullOrEmpty())
                 {
                     if (t.IsCompleted)
