@@ -162,29 +162,13 @@ namespace MetaFrm.Razor
                     else
                         this.LocalStorage?.RemoveItemAsync("Login.Email");
 
-                    if (Factory.Platform == Maui.Devices.DevicePlatform.Web && this.AuthStateProvider != null)
+                    if (this.AuthStateProvider != null)
                         this.AuthStateProvider.AuthenticationStateChanged += AuthStateProvider_AuthenticationStateChanged;
 
                     userInfo = await this.LoginServiceRequestAsync(this.AuthStateProvider, this.LoginViewModel.Email, this.LoginViewModel.Password);
 
                     if (userInfo.Status == Status.OK)
-                    {
-                        this.LocalStorage?.SetItemAsStringAsync("Login.AutoLogin", this.AutoLogin.ToString());
-
-                        if (this.AutoLogin)
-                            this.LocalStorage?.SetItemAsStringAsync("Login.Password", this.LoginViewModel.Password.AesEncryptToBase64String(this.LoginViewModel.Email, Factory.AccessKey));
-                        else
-                            this.LocalStorage?.RemoveItemAsync("Login.Password");
-
-                        this.LoginViewModel.Password = string.Empty;
-
-                        if (Factory.Platform != Maui.Devices.DevicePlatform.Web)
-                        {
-                            Factory.ViewModelClear();
-                            this.Navigation?.NavigateTo("/", true);
-                        }
                         return true;
-                    }
                     else
                     {
                         if (this.AutoLogin)
@@ -209,17 +193,26 @@ namespace MetaFrm.Razor
             return false;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2012:올바르게 ValueTasks 사용", Justification = "<보류 중>")]
         private void AuthStateProvider_AuthenticationStateChanged(Task<Microsoft.AspNetCore.Components.Authorization.AuthenticationState> task)
         {
-            task.ContinueWith(t => {
-                if (this.LoginViewModel.Password.IsNullOrEmpty())
-                {
+            task.ContinueWith(t =>
+            {
+                if (this.LoginViewModel.Email != null && this.LoginViewModel.Password != null)
                     if (t.IsCompleted)
                     {
+                        this.LocalStorage?.SetItemAsStringAsync("Login.AutoLogin", this.AutoLogin.ToString());
+
+                        if (this.AutoLogin)
+                            this.LocalStorage?.SetItemAsStringAsync("Login.Password", this.LoginViewModel.Password.AesEncryptToBase64String(this.LoginViewModel.Email, Factory.AccessKey));
+                        else
+                            this.LocalStorage?.RemoveItemAsync("Login.Password");
+
+                        this.LoginViewModel.Password = string.Empty;
+
                         Factory.ViewModelClear();
                         this.Navigation?.NavigateTo("/", true);
                     }
-                }
             });
         }
 
