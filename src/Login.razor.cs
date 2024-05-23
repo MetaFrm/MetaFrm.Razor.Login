@@ -83,7 +83,7 @@ namespace MetaFrm.Razor
                 if (this.LocalStorage != null)
                 {
                     this.LoginViewModel.Email = await this.LocalStorage.GetItemAsStringAsync("Login.Email");
-                    tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.AutoLogin");
+                    tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.AutoLogin") ?? "";
 
                     if (!this.LoginViewModel.Email.IsNullOrEmpty() && !tmpString.IsNullOrEmpty() && tmpString.ToTryBool(out bool tmpBool))
                     {
@@ -92,11 +92,11 @@ namespace MetaFrm.Razor
                         if (this.AutoLogin)
                             try
                             {
-                                tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.Password");
+                                tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.Password") ?? "";
 
                                 if (!tmpString.IsNullOrEmpty())
                                 {
-                                    this.LoginViewModel.Password = tmpString.AesDecryptorToBase64String(this.LoginViewModel.Email, Factory.AccessKey);
+                                    this.LoginViewModel.Password = tmpString.AesDecryptorToBase64String(this.LoginViewModel.Email ?? "", Factory.AccessKey);
 
                                     if (!this.LoginViewModel.Password.IsNullOrEmpty())
                                         await this.OnLoginClickAsync();
