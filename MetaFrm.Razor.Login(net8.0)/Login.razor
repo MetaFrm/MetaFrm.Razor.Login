@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="form-outline pb-1">
-        <h1>Sign in</h1>
+        <h1>@Localization["로그인"]</h1>
         <p>@Factory.ProjectService.ServiceName</p>
     </div>
         <div class="row d-flex align-items-center justify-content-center h-100">
@@ -24,40 +24,40 @@
                     <DataAnnotationsValidator />
 
                     <div class="row">
-                        <span class="col-md-12 oi oi-person ps-3 pb-2"> Email address</span>
+                        <span class="col-md-12 oi oi-person ps-3 pb-2"><span class="ps-1">@Localization["이메일 주소"]</span></span>
                         <!-- Email input -->
                         <div class="col-md-12 mb-4">
-                            <InputText id="email" class="form-control form-control" placeholder="Email address" @bind-Value="this.LoginViewModel.Email" @onkeydown="@EmailKeydown" @oninput="@HandleInputChange" />
+                            <InputText id="email" class="form-control form-control" placeholder="@Localization["이메일 주소"]" @bind-Value="this.LoginViewModel.Email" @onkeydown="@EmailKeydown" @oninput="@HandleInputChange" />
                             <ValidationMessage For="@(()=>this.LoginViewModel.Email)" />
                         </div>
 
-                        <span class="col-md-12 oi oi-lock-unlocked ps-3 pb-2"> Password</span>
+                        <span class="col-md-12 oi oi-lock-unlocked ps-3 pb-2"><span class="ps-1">@Localization["비밀번호"]</span></span>
                         <!-- Password input -->
                         <div class="col-md-12 mb-4">
-                            <InputText id="password" type="password" class="form-control form-control" placeholder="Password" @bind-Value="this.LoginViewModel.Password" />
+                            <InputText id="password" type="password" class="form-control form-control" placeholder="@Localization["비밀번호"]" @bind-Value="this.LoginViewModel.Password" />
                             <ValidationMessage For="@(()=>this.LoginViewModel.Password)" />
                         </div>
 
                         <div class="col-md-12 mb-4">
                             <!-- Checkbox -->
                             <InputCheckbox id="remembermelabel" class="form-check-input" @bind-Value="this.Rememberme" />
-                            <label class="form-check-label ps-1" for="remembermelabel">Remember me</label>
+                            <label class="form-check-label ps-1" for="remembermelabel">@Localization["아이디 저장"]</label>
                             <!-- Checkbox -->
                             <InputCheckbox id="autologinlabel" class="form-check-input" @bind-Value="this.AutoLogin" />
-                            <label class="form-check-label ps-1" for="autologinlabel">Auto Login</label>
+                            <label class="form-check-label ps-1" for="autologinlabel">@Localization["자동 로그인"]</label>
                         </div>
                         <div class="col-md-6 mb-4">
-                            <a href="#" @onclick="this.OnPasswordResetClick" >Forgot password?</a>
+                            <a href="#" @onclick="this.OnPasswordResetClick">@Localization["비밀번호를 잊어버렸습니까?"]</a>
                         </div>
 
                         <!-- Submit button -->
                         <div class="col-md-6 mb-4"> </div>
                         <div class="col-md-6 mb-4">
-                            <button type="submit" class="btn btn-primary btn-block w-100" >Sign in</button>
+                            <button type="submit" class="btn btn-primary btn-block w-100">@Localization["로그인"]</button>
                         </div>
 
                         <div class="col-md-12 mb-4 text-center">
-                            <p>Don't have an account? <a href="#" @onclick="this.OnRegisterClick" >Register</a></p>
+                            <p>@Localization["계정이 없나요?"] <a href="#" @onclick="this.OnRegisterClick">@Localization["가입하기"]</a></p>
                         </div>
                     </div>
                 </EditForm>
