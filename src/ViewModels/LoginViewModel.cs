@@ -1,5 +1,6 @@
 ﻿using MetaFrm.MVVM;
-using System.ComponentModel.DataAnnotations;
+using MetaFrm.Razor.Essentials.ComponentModel.DataAnnotations;
+using DisplayAttribute = System.ComponentModel.DataAnnotations.DisplayAttribute;
 
 namespace MetaFrm.Razor.ViewModels
 {
@@ -11,6 +12,7 @@ namespace MetaFrm.Razor.ViewModels
         /// <summary>
         /// Email
         /// </summary>
+        [Display(Name = "이메일")]
         [Required]
         [EmailAddress]
         public string? Email { get; set; }
@@ -18,6 +20,7 @@ namespace MetaFrm.Razor.ViewModels
         /// <summary>
         /// Password
         /// </summary>
+        [Display(Name = "비밀번호")]
         [Required]
         [MinLength(6)]
         public string? Password { get; set; }
