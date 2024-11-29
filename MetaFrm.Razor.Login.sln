@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32611.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Razor.Login(net6.0)", "MetaFrm.Razor.Login(net6.0)\MetaFrm.Razor.Login(net6.0).csproj", "{F1C71E09-B5E4-4765-A289-F7C9BE4F286B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1839C684-4523-4C11-9328-E95E1D27437A}"
 	ProjectSection(SolutionItems) = preProject
 		src\Login.razor.cs = src\Login.razor.cs
@@ -19,9 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{0238
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{14E702D5-97B2-4A34-BD47-184EEC51816C}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build_6.0.yml = .github\workflows\build_6.0.yml
-		.github\workflows\build_7.0.yml = .github\workflows\build_7.0.yml
 		.github\workflows\build_8.0.yml = .github\workflows\build_8.0.yml
+		.github\workflows\build_9.0.yml = .github\workflows\build_9.0.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{E511F400-61A7-4BB3-AEC6-24D6AF520699}"
@@ -31,9 +28,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루�
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Razor.Login(net7.0)", "MetaFrm.Razor.Login(net7.0)\MetaFrm.Razor.Login(net7.0).csproj", "{D986A8BC-270E-442D-BB58-23CF6E7F2891}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Razor.Login(net8.0)", "MetaFrm.Razor.Login(net8.0)\MetaFrm.Razor.Login(net8.0).csproj", "{001D512E-0D0B-4863-B1E9-25B0D536093B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaFrm.Razor.Login(net9.0)", "MetaFrm.Razor.Login(net9.0)\MetaFrm.Razor.Login(net9.0).csproj", "{794A3494-E832-4D3A-BB63-CA0E36417C72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,18 +38,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F1C71E09-B5E4-4765-A289-F7C9BE4F286B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1C71E09-B5E4-4765-A289-F7C9BE4F286B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1C71E09-B5E4-4765-A289-F7C9BE4F286B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1C71E09-B5E4-4765-A289-F7C9BE4F286B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D986A8BC-270E-442D-BB58-23CF6E7F2891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D986A8BC-270E-442D-BB58-23CF6E7F2891}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D986A8BC-270E-442D-BB58-23CF6E7F2891}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D986A8BC-270E-442D-BB58-23CF6E7F2891}.Release|Any CPU.Build.0 = Release|Any CPU
 		{001D512E-0D0B-4863-B1E9-25B0D536093B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{001D512E-0D0B-4863-B1E9-25B0D536093B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{001D512E-0D0B-4863-B1E9-25B0D536093B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{001D512E-0D0B-4863-B1E9-25B0D536093B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794A3494-E832-4D3A-BB63-CA0E36417C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794A3494-E832-4D3A-BB63-CA0E36417C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794A3494-E832-4D3A-BB63-CA0E36417C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794A3494-E832-4D3A-BB63-CA0E36417C72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

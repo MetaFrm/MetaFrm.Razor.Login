@@ -67,7 +67,6 @@ namespace MetaFrm.Razor
         /// OnAfterRender
         /// </summary>
         /// <param name="firstRender"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2012:올바르게 ValueTasks 사용", Justification = "<보류 중>")]
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             string tmpString;
@@ -102,50 +101,57 @@ namespace MetaFrm.Razor
                                     else
                                     {
                                         this.isBusy = false;
-                                        this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                                        ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                                     }
                                 }
                                 else
                                 {
                                     this.isBusy = false;
-                                    this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                                    ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                                 }
 
                             }
                             catch (Exception)
                             {
                                 this.isBusy = false;
-                                this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                                ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                             }
                         else
                         {
                             this.isBusy = false;
                             if (!this.LoginViewModel.Email.IsNullOrEmpty())
-                                this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                            {
+                                ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                            }
                             else
-                                this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
+                            {
+                                ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
+                            }
                         }
                     }
                     else
                     {
                         this.isBusy = false;
                         if (!this.LoginViewModel.Email.IsNullOrEmpty())
-                            this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                        {
+                            ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                        }
                         else
-                            this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
+                        {
+                            ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
+                        }
                     }
                 }
                 else
                 {
                     this.isBusy = false;
-                    this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
+                    ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
                 }
 
                 this.StateHasChanged();
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2012:올바르게 ValueTasks 사용", Justification = "<보류 중>")]
         private async Task<bool> OnLoginClickAsync()
         {
             try
@@ -157,9 +163,13 @@ namespace MetaFrm.Razor
                 if (this.LoginViewModel.Email != null && this.LoginViewModel.Password != null)
                 {
                     if (this.Rememberme)
-                        this.LocalStorage?.SetItemAsStringAsync("Login.Email", this.LoginViewModel.Email);
+                    {
+                        ValueTask? _ = this.LocalStorage?.SetItemAsStringAsync("Login.Email", this.LoginViewModel.Email);
+                    }
                     else
-                        this.LocalStorage?.RemoveItemAsync("Login.Email");
+                    {
+                        ValueTask? _ = this.LocalStorage?.RemoveItemAsync("Login.Email");
+                    }
 
                     if (this.AuthStateProvider != null)
                         this.AuthStateProvider.AuthenticationStateChanged += AuthStateProvider_AuthenticationStateChanged;
@@ -192,7 +202,6 @@ namespace MetaFrm.Razor
             return false;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2012:올바르게 ValueTasks 사용", Justification = "<보류 중>")]
         private void AuthStateProvider_AuthenticationStateChanged(Task<Microsoft.AspNetCore.Components.Authorization.AuthenticationState> task)
         {
             task.ContinueWith(t =>
@@ -200,12 +209,16 @@ namespace MetaFrm.Razor
                 if (this.LoginViewModel.Email != null && this.LoginViewModel.Password != null)
                     if (t.IsCompleted)
                     {
-                        this.LocalStorage?.SetItemAsStringAsync("Login.AutoLogin", this.AutoLogin.ToString());
+                        ValueTask? _ = this.LocalStorage?.SetItemAsStringAsync("Login.AutoLogin", this.AutoLogin.ToString());
 
                         if (this.AutoLogin)
-                            this.LocalStorage?.SetItemAsStringAsync("Login.Password", this.LoginViewModel.Password.AesEncryptToBase64String(this.LoginViewModel.Email, Factory.AccessKey));
+                        {
+                            ValueTask? __ = this.LocalStorage?.SetItemAsStringAsync("Login.Password", this.LoginViewModel.Password.AesEncryptToBase64String(this.LoginViewModel.Email, Factory.AccessKey));
+                        }
                         else
-                            this.LocalStorage?.RemoveItemAsync("Login.Password");
+                        {
+                            ValueTask? __ = this.LocalStorage?.RemoveItemAsync("Login.Password");
+                        }
 
                         this.LoginViewModel.Password = string.Empty;
 
@@ -218,9 +231,8 @@ namespace MetaFrm.Razor
         private async Task OnClickFunctionAsync(string action)
         {
             await Task.Delay(100);
-#pragma warning disable CA2012 // 올바르게 ValueTasks 사용
-            this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
-#pragma warning restore CA2012 // 올바르게 ValueTasks 사용
+
+            ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
         }
 
         private async void HandleValidSubmitAsync(EditContext context)
@@ -248,9 +260,7 @@ namespace MetaFrm.Razor
         {
             if (args.Key == "Enter" && !this.LoginViewModel.Email.IsNullOrEmpty())
             {
-#pragma warning disable CA2012 // 올바르게 ValueTasks 사용
-                this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
-#pragma warning restore CA2012 // 올바르게 ValueTasks 사용
+                ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
             }
         }
     }

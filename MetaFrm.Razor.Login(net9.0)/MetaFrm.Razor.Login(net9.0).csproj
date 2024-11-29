@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MetaFrm.Razor</RootNamespace>
     <AssemblyName>MetaFrm.Razor.Login</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>MetaFrm.Razor.Login.net7.0</PackageId>
-    <Version>7.0.3.44</Version>
+    <PackageId>MetaFrm.Razor.Login.net9.0</PackageId>
+    <Version>9.0.4.3</Version>
     <Authors>dsun</Authors>
     <Company>Meta Framework</Company>
     <Copyright>Copyright 2024. dsun all rights reserved.</Copyright>
@@ -43,9 +43,9 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MetaFrm.Core.net7.0" Version="7.0.3.44" />
-    <PackageReference Include="MetaFrm.Razor.Essentials.net7.0" Version="7.0.3.44" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.20" />
+    <PackageReference Include="MetaFrm.Core.net9.0" Version="9.0.4.3" />
+    <PackageReference Include="MetaFrm.Razor.Essentials.net9.0" Version="9.0.4.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="icon.png">
