@@ -223,7 +223,8 @@ namespace MetaFrm.Razor
                         this.LoginViewModel.Password = string.Empty;
 
                         Factory.ViewModelClear();
-                        this.Navigation?.NavigateTo("/", true);
+                        //this.Navigation?.NavigateTo("/", true);
+                        this.Navigation?.Refresh();
                     }
             });
         }
