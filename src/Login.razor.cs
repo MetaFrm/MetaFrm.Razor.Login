@@ -223,8 +223,11 @@ namespace MetaFrm.Razor
                         this.LoginViewModel.Password = string.Empty;
 
                         Factory.ViewModelClear();
-                        //this.Navigation?.NavigateTo("/", true);
-                        this.Navigation?.Refresh(true);
+
+                        if (Factory.DeviceInfo != null && Factory.DeviceInfo.Platform == Maui.Devices.DevicePlatform.iOS)
+                            this.Navigation?.NavigateTo("/", true);
+                        else
+                            this.Navigation?.Refresh();
                     }
             });
         }
