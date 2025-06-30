@@ -224,7 +224,7 @@ namespace MetaFrm.Razor
 
                         Factory.ViewModelClear();
                         //this.Navigation?.NavigateTo("/", true);
-                        this.Navigation?.Refresh();
+                        this.Navigation?.Refresh(true);
                     }
             });
         }
