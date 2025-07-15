@@ -15,7 +15,7 @@ namespace MetaFrm.Razor
     /// </summary>
     public partial class Login
     {
-        internal LoginViewModel LoginViewModel = Factory.CreateViewModel<LoginViewModel>();
+        internal LoginViewModel LoginViewModel = new();
 
         private bool isBusy = true;
 
@@ -61,6 +61,14 @@ namespace MetaFrm.Razor
                         this.Rememberme = true;
                 }
             }
+        }
+
+        /// <summary>
+        /// Login
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            this.LoginViewModel = this.CreateViewModel<LoginViewModel>();
         }
 
         /// <summary>
