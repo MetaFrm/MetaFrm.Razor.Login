@@ -1,5 +1,6 @@
 ﻿using MetaFrm.MVVM;
 using MetaFrm.Razor.Essentials.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Localization;
 using DisplayAttribute = System.ComponentModel.DataAnnotations.DisplayAttribute;
 
 namespace MetaFrm.Razor.ViewModels
@@ -24,5 +25,16 @@ namespace MetaFrm.Razor.ViewModels
         [Required]
         [MinLength(6)]
         public string? Password { get; set; }
+
+        /// <summary>
+        /// LoginViewModel
+        /// </summary>
+        public LoginViewModel() { }
+
+        /// <summary>
+        /// LoginViewModel
+        /// </summary>
+        /// <param name="localization"></param>
+        public LoginViewModel(IStringLocalizer? localization) : base(localization) { }
     }
 }
