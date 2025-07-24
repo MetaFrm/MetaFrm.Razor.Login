@@ -108,29 +108,39 @@ namespace MetaFrm.Razor
                     this.AuthStateProvider.AuthenticationStateChanged += AuthStateProvider_AuthenticationStateChanged;
                 }
 
-                try
-                {
-                    this.LoginViewModel.IsBusy = true;
-                    if (this.LocalStorage != null)
+                if (!this.LoginViewModel.IsBusy)
+                    try
                     {
-                        this.LoginViewModel.Email = await this.LocalStorage.GetItemAsStringAsync("Login.Email");
-                        tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.AutoLogin") ?? "";
+                        this.LoginViewModel.IsBusy = true;
 
-                        if (!this.LoginViewModel.Email.IsNullOrEmpty() && !tmpString.IsNullOrEmpty() && tmpString.ToTryBool(out bool tmpBool))
+                        if (this.LocalStorage != null)
                         {
-                            this.AutoLogin = tmpBool;
+                            this.LoginViewModel.Email = await this.LocalStorage.GetItemAsStringAsync("Login.Email");
+                            tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.AutoLogin") ?? "";
 
-                            if (this.AutoLogin)
-                                try
-                                {
-                                    tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.Password") ?? "";
+                            if (!this.LoginViewModel.Email.IsNullOrEmpty() && !tmpString.IsNullOrEmpty() && tmpString.ToTryBool(out bool tmpBool))
+                            {
+                                this.AutoLogin = tmpBool;
 
-                                    if (!tmpString.IsNullOrEmpty())
+                                if (this.AutoLogin)
+                                    try
                                     {
-                                        this.LoginViewModel.Password = tmpString.AesDecryptorToBase64String(this.LoginViewModel.Email ?? "", Factory.AccessKey);
+                                        tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.Password") ?? "";
 
-                                        if (!this.LoginViewModel.Password.IsNullOrEmpty())
-                                            await this.OnLoginClickAsync();
+                                        if (!tmpString.IsNullOrEmpty())
+                                        {
+                                            this.LoginViewModel.Password = tmpString.AesDecryptorToBase64String(this.LoginViewModel.Email ?? "", Factory.AccessKey);
+
+                                            if (!this.LoginViewModel.Password.IsNullOrEmpty())
+                                                await this.OnLoginClickAsync();
+                                            else
+                                            {
+                                                if (this.IsLoadAutoFocus)
+                                                {
+                                                    ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                                                }
+                                            }
+                                        }
                                         else
                                         {
                                             if (this.IsLoadAutoFocus)
@@ -138,23 +148,28 @@ namespace MetaFrm.Razor
                                                 ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                                             }
                                         }
+
                                     }
-                                    else
+                                    catch (Exception)
                                     {
                                         if (this.IsLoadAutoFocus)
                                         {
                                             ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                                         }
                                     }
-
-                                }
-                                catch (Exception)
+                                else
                                 {
                                     if (this.IsLoadAutoFocus)
-                                    {
-                                        ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
-                                    }
+                                        if (!this.LoginViewModel.Email.IsNullOrEmpty())
+                                        {
+                                            ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
+                                        }
+                                        else
+                                        {
+                                            ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
+                                        }
                                 }
+                            }
                             else
                             {
                                 if (this.IsLoadAutoFocus)
@@ -171,28 +186,15 @@ namespace MetaFrm.Razor
                         else
                         {
                             if (this.IsLoadAutoFocus)
-                                if (!this.LoginViewModel.Email.IsNullOrEmpty())
-                                {
-                                    ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
-                                }
-                                else
-                                {
-                                    ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
-                                }
+                            {
+                                ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
+                            }
                         }
                     }
-                    else
+                    finally
                     {
-                        if (this.IsLoadAutoFocus)
-                        {
-                            ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "email");
-                        }
+                        this.LoginViewModel.IsBusy = false;
                     }
-                }
-                finally
-                {
-                    this.LoginViewModel.IsBusy = false;
-                }
 
                 this.StateHasChanged();
             }
@@ -200,8 +202,6 @@ namespace MetaFrm.Razor
 
         private async Task<bool> OnLoginClickAsync()
         {
-            if (this.LoginViewModel.IsBusy) return false;
-
             try
             {
                 this.LoginViewModel.IsBusy = true;
@@ -251,6 +251,8 @@ namespace MetaFrm.Razor
                 if (this.LoginViewModel.Email != null && this.LoginViewModel.Password != null)
                     if (t.IsCompleted)
                     {
+                        if (this.LoginViewModel.IsBusy) return;
+
                         try
                         {
                             this.LoginViewModel.IsBusy = true;
