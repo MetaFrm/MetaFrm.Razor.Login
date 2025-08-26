@@ -272,10 +272,7 @@ namespace MetaFrm.Razor
 
                             Factory.ViewModelClear();
 
-                            if (Factory.DeviceInfo != null && Factory.DeviceInfo.Platform == Maui.Devices.DevicePlatform.iOS)
-                                this.Navigation?.NavigateTo("/", true);
-                            else
-                                this.Navigation?.Refresh();
+                            this.Navigation?.NavigateTo("/", true);
 
                         }
                         finally
