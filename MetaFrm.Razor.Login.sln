@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32611.2
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11205.157 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1839C684-4523-4C11-9328-E95E1D27437A}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{0238
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{14E702D5-97B2-4A34-BD47-184EEC51816C}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build_10.0.yml = .github\workflows\build_10.0.yml
 		.github\workflows\build_8.0.yml = .github\workflows\build_8.0.yml
 		.github\workflows\build_9.0.yml = .github\workflows\build_9.0.yml
 	EndProjectSection
@@ -32,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Razor.Login(net8.0)
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaFrm.Razor.Login(net9.0)", "MetaFrm.Razor.Login(net9.0)\MetaFrm.Razor.Login(net9.0).csproj", "{794A3494-E832-4D3A-BB63-CA0E36417C72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaFrm.Razor.Login(net10.0)", "MetaFrm.Razor.Login(net10.0)\MetaFrm.Razor.Login(net10.0).csproj", "{EDC55F89-BBC8-F4BF-AAB6-3DDEC3A1A72C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +49,10 @@ Global
 		{794A3494-E832-4D3A-BB63-CA0E36417C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{794A3494-E832-4D3A-BB63-CA0E36417C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{794A3494-E832-4D3A-BB63-CA0E36417C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC55F89-BBC8-F4BF-AAB6-3DDEC3A1A72C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC55F89-BBC8-F4BF-AAB6-3DDEC3A1A72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC55F89-BBC8-F4BF-AAB6-3DDEC3A1A72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC55F89-BBC8-F4BF-AAB6-3DDEC3A1A72C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
