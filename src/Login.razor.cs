@@ -6,6 +6,7 @@ using MetaFrm.Web.Bootstrap;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 namespace MetaFrm.Razor
@@ -272,11 +273,16 @@ namespace MetaFrm.Razor
 
                             Factory.ViewModelClear();
 
-                            this.Navigation?.NavigateTo("/", true);
-
+                        }
+                        catch (Exception ex)
+                        {
+                            if (Factory.Logger.IsEnabled(LogLevel.Error))
+                                Factory.Logger.LogError(ex, "Error while AuthStateProvider_AuthenticationStateChanged");
                         }
                         finally
                         {
+                            this.Navigation?.NavigateTo("/", true);
+
                             this.LoginViewModel.IsBusy = false;
                         }
                     }
