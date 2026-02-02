@@ -114,25 +114,25 @@ namespace MetaFrm.Razor
                     {
                         this.LoginViewModel.IsBusy = true;
 
-                        if (this.LocalStorage != null)
+                        if (this.Local != null)
                         {
-                            this.LoginViewModel.Email = await this.LocalStorage.GetItemAsStringAsync("Login.Email");
-                            tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.AutoLogin") ?? "";
+                            this.LoginViewModel.Email = await this.Local.GetItemAsStringAsync("Login.Email");
+                            tmpString = await this.Local.GetItemAsStringAsync("Login.AutoLogin") ?? "";
 
-                            if (!this.LoginViewModel.Email.IsNullOrEmpty() && !tmpString.IsNullOrEmpty() && tmpString.ToTryBool(out bool tmpBool))
+                            if (!string.IsNullOrEmpty(this.LoginViewModel.Email) && !string.IsNullOrEmpty(tmpString) && tmpString.ToTryBool(out bool tmpBool))
                             {
                                 this.AutoLogin = tmpBool;
 
                                 if (this.AutoLogin)
                                     try
                                     {
-                                        tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.Password") ?? "";
+                                        tmpString = await this.Local.GetItemAsStringAsync("Login.Password") ?? "";
 
-                                        if (!tmpString.IsNullOrEmpty())
+                                        if (!string.IsNullOrEmpty(tmpString))
                                         {
                                             this.LoginViewModel.Password = tmpString.AesDecryptorToBase64String(this.LoginViewModel.Email ?? "", Factory.AccessKey);
 
-                                            if (!this.LoginViewModel.Password.IsNullOrEmpty())
+                                            if (!string.IsNullOrEmpty(this.LoginViewModel.Password))
                                                 await this.OnLoginClickAsync();
                                             else
                                             {
@@ -161,7 +161,7 @@ namespace MetaFrm.Razor
                                 else
                                 {
                                     if (this.IsLoadAutoFocus)
-                                        if (!this.LoginViewModel.Email.IsNullOrEmpty())
+                                        if (!string.IsNullOrEmpty(this.LoginViewModel.Email))
                                         {
                                             ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                                         }
@@ -174,7 +174,7 @@ namespace MetaFrm.Razor
                             else
                             {
                                 if (this.IsLoadAutoFocus)
-                                    if (!this.LoginViewModel.Email.IsNullOrEmpty())
+                                    if (!string.IsNullOrEmpty(this.LoginViewModel.Email))
                                     {
                                         ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
                                     }
@@ -213,11 +213,11 @@ namespace MetaFrm.Razor
                 {
                     if (this.Rememberme)
                     {
-                        ValueTask? _ = this.LocalStorage?.SetItemAsStringAsync("Login.Email", this.LoginViewModel.Email);
+                        ValueTask? _ = this.Local?.SetItemAsStringAsync("Login.Email", this.LoginViewModel.Email);
                     }
                     else
                     {
-                        ValueTask? _ = this.LocalStorage?.RemoveItemAsync("Login.Email");
+                        ValueTask? _ = this.Local?.RemoveItemAsync("Login.Email");
                     }
 
                     userInfo = await this.LoginServiceRequestAsync(this.AuthStateProvider, this.LoginViewModel.Email, this.LoginViewModel.Password);
@@ -258,15 +258,15 @@ namespace MetaFrm.Razor
                         {
                             this.LoginViewModel.IsBusy = true;
 
-                            ValueTask? _ = this.LocalStorage?.SetItemAsStringAsync("Login.AutoLogin", this.AutoLogin.ToString());
+                            ValueTask? _ = this.Local?.SetItemAsStringAsync("Login.AutoLogin", this.AutoLogin.ToString());
 
                             if (this.AutoLogin)
                             {
-                                ValueTask? __ = this.LocalStorage?.SetItemAsStringAsync("Login.Password", this.LoginViewModel.Password.AesEncryptToBase64String(this.LoginViewModel.Email, Factory.AccessKey));
+                                ValueTask? __ = this.Local?.SetItemAsStringAsync("Login.Password", this.LoginViewModel.Password.AesEncryptToBase64String(this.LoginViewModel.Email, Factory.AccessKey));
                             }
                             else
                             {
-                                ValueTask? __ = this.LocalStorage?.RemoveItemAsync("Login.Password");
+                                ValueTask? __ = this.Local?.RemoveItemAsync("Login.Password");
                             }
 
                             this.LoginViewModel.Password = string.Empty;
@@ -322,7 +322,7 @@ namespace MetaFrm.Razor
 
         private void EmailKeydown(KeyboardEventArgs args)
         {
-            if (args.Key == "Enter" && !this.LoginViewModel.Email.IsNullOrEmpty())
+            if (args.Key == "Enter" && !string.IsNullOrEmpty(this.LoginViewModel.Email))
             {
                 ValueTask? _ = this.JSRuntime?.InvokeVoidAsync("ElementFocus", "password");
             }
