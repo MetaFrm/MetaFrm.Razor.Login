@@ -114,10 +114,10 @@ namespace MetaFrm.Razor
                     {
                         this.LoginViewModel.IsBusy = true;
 
-                        if (this.Local != null)
+                        if (this.LocalStorage != null)
                         {
-                            this.LoginViewModel.Email = await this.Local.GetItemAsStringAsync("Login.Email");
-                            tmpString = await this.Local.GetItemAsStringAsync("Login.AutoLogin") ?? "";
+                            this.LoginViewModel.Email = await this.LocalStorage.GetItemAsStringAsync("Login.Email");
+                            tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.AutoLogin") ?? "";
 
                             if (!string.IsNullOrEmpty(this.LoginViewModel.Email) && !string.IsNullOrEmpty(tmpString) && tmpString.ToTryBool(out bool tmpBool))
                             {
@@ -126,7 +126,7 @@ namespace MetaFrm.Razor
                                 if (this.AutoLogin)
                                     try
                                     {
-                                        tmpString = await this.Local.GetItemAsStringAsync("Login.Password") ?? "";
+                                        tmpString = await this.LocalStorage.GetItemAsStringAsync("Login.Password") ?? "";
 
                                         if (!string.IsNullOrEmpty(tmpString))
                                         {
@@ -213,11 +213,11 @@ namespace MetaFrm.Razor
                 {
                     if (this.Rememberme)
                     {
-                        ValueTask? _ = this.Local?.SetItemAsStringAsync("Login.Email", this.LoginViewModel.Email);
+                        ValueTask? _ = this.LocalStorage?.SetItemAsStringAsync("Login.Email", this.LoginViewModel.Email);
                     }
                     else
                     {
-                        ValueTask? _ = this.Local?.RemoveItemAsync("Login.Email");
+                        ValueTask? _ = this.LocalStorage?.RemoveItemAsync("Login.Email");
                     }
 
                     userInfo = await this.LoginServiceRequestAsync(this.AuthStateProvider, this.LoginViewModel.Email, this.LoginViewModel.Password);
@@ -258,15 +258,15 @@ namespace MetaFrm.Razor
                         {
                             this.LoginViewModel.IsBusy = true;
 
-                            ValueTask? _ = this.Local?.SetItemAsStringAsync("Login.AutoLogin", this.AutoLogin.ToString());
+                            ValueTask? _ = this.LocalStorage?.SetItemAsStringAsync("Login.AutoLogin", this.AutoLogin.ToString());
 
                             if (this.AutoLogin)
                             {
-                                ValueTask? __ = this.Local?.SetItemAsStringAsync("Login.Password", this.LoginViewModel.Password.AesEncryptToBase64String(this.LoginViewModel.Email, Factory.AccessKey));
+                                ValueTask? __ = this.LocalStorage?.SetItemAsStringAsync("Login.Password", this.LoginViewModel.Password.AesEncryptToBase64String(this.LoginViewModel.Email, Factory.AccessKey));
                             }
                             else
                             {
-                                ValueTask? __ = this.Local?.RemoveItemAsync("Login.Password");
+                                ValueTask? __ = this.LocalStorage?.RemoveItemAsync("Login.Password");
                             }
 
                             this.LoginViewModel.Password = string.Empty;
@@ -276,8 +276,7 @@ namespace MetaFrm.Razor
                         }
                         catch (Exception ex)
                         {
-                            if (Factory.Logger.IsEnabled(LogLevel.Error))
-                                Factory.Logger.LogError(ex, "Error while AuthStateProvider_AuthenticationStateChanged");
+                            Factory.Logger.Error(ex, "Error while AuthStateProvider_AuthenticationStateChanged");
                         }
                         finally
                         {
