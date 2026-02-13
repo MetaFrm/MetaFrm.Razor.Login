@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MetaFrm.Razor</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <AssemblyName>MetaFrm.Razor.Login</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>MetaFrm.Razor.Login.net10.0</PackageId>
-    <Version>10.0.1.20</Version>
+    <Version>10.0.3.0</Version>
     <Authors>dsun</Authors>
     <Company>Meta Framework</Company>
     <Copyright>Copyright 2026. dsun all rights reserved.</Copyright>
@@ -16,25 +16,16 @@
     <RepositoryUrl>https://github.com/MetaFrm/MetaFrm.Razor.Login</RepositoryUrl>
     <PackageTags>meta;framework;dotnet;maui;</PackageTags>
     <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss:fffZ"))</SourceRevisionId>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
     <Title>Meta Framework Razor Login</Title>
-    <Product>Meta Framework Razor Login</Product>
     <Description>Meta Framework
 (Multi platform &amp; Meta management)</Description>
+    <Product>Meta Framework Razor Login</Product>
     <PackageIcon>icon.png</PackageIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\readme.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="ExampleJsInterop.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="_Imports.razor" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Login.razor.css" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\Login.razor.cs" Link="Login.razor.cs" />
@@ -47,9 +38,9 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MetaFrm.Core.net10.0" Version="10.0.1.20" />
-    <PackageReference Include="MetaFrm.Razor.Essentials.net10.0" Version="10.0.1.20" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.2" />
+    <PackageReference Include="MetaFrm.Core.net10.0" Version="10.0.3" />
+    <PackageReference Include="MetaFrm.Razor.Essentials.net10.0" Version="10.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png">
