@@ -345,8 +345,7 @@ namespace MetaFrm.Razor
         {
             if (disposing)
             {
-                if (this.AuthStateProvider != null)
-                    this.AuthStateProvider.AuthenticationStateChanged -= AuthStateProvider_AuthenticationStateChanged;
+                this.AuthStateProvider?.AuthenticationStateChanged -= AuthStateProvider_AuthenticationStateChanged;
             }
         }
     }
