@@ -69,6 +69,8 @@ namespace MetaFrm.Razor
             }
         }
 
+        private string? BackGroundImage { get; set; }
+
         /// <summary>
         /// OnInitialized
         /// </summary>
@@ -81,6 +83,7 @@ namespace MetaFrm.Razor
             try
             {
                 this.IsLoadAutoFocus = this.GetAttributeBool(nameof(this.IsLoadAutoFocus));
+                this.BackGroundImage = this.GetAttribute(nameof(this.BackGroundImage));
             }
             catch (Exception)
             {
